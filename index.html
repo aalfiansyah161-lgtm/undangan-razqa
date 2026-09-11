@@ -164,16 +164,18 @@ textarea{min-height:95px;resize:vertical}
 const API="https://script.google.com/macros/s/AKfycby0p5VifjzsHM9nU21PNGDg0k5k6l3cXjWkcbR3wtQiLX5n6C8HrNZjtg_Dka3c11VeQg/exec";
 const guestId=new URLSearchParams(location.search).get("to")||"";
 
-function jsonp(url,timeout=10000){
+function jsonp(url, timeout=12000){
  return new Promise((resolve,reject)=>{
-  const cb="razqa_"+Date.now()+"_"+Math.floor(Math.random()*9999);
+  const cb="razqaCallback"+Date.now();
   const s=document.createElement("script");
-  const t=setTimeout(()=>{cleanup();reject(new Error("timeout"))},timeout);
-  function cleanup(){clearTimeout(t);s.remove();delete window[cb]}
-  window[cb]=d=>{cleanup();resolve(d)};
-  s.onerror=()=>{cleanup();reject(new Error("API gagal"))};
-  s.src=url+"&callback="+cb+"&_="+Date.now();
-  document.body.appendChild(s);
+  let done=false;
+  const finish=(fn,value)=>{if(done)return;done=true;clearTimeout(timer);delete window[cb];s.remove();fn(value)};
+  const timer=setTimeout(()=>finish(reject,new Error("API timeout")),timeout);
+  window[cb]=data=>finish(resolve,data);
+  s.async=true;
+  s.onerror=()=>finish(reject,new Error("API gagal diakses"));
+  s.src=url+"&callback="+cb+"&cacheBust="+Date.now();
+  document.head.appendChild(s);
  });
 }
 
