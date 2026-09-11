@@ -66,6 +66,71 @@ textarea{min-height:95px;resize:vertical}
  .count strong{font-size:25px}
 }
 </style>
+
+<style>
+.inviting-list{
+  display:grid;
+  gap:10px;
+  margin-top:18px;
+  text-align:left;
+}
+.inviting-item{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:10px;
+  align-items:start;
+  padding:13px 12px;
+  border:1px solid rgba(209,173,114,.28);
+  border-radius:15px;
+  background:rgba(18,11,7,.22);
+}
+.inviting-item > span{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(209,173,114,.55);
+  border-radius:50%;
+  color:#efd39b;
+  font-size:9px;
+  letter-spacing:1px;
+}
+.inviting-item p{
+  margin:0;
+  font-family:Montserrat,sans-serif;
+  font-size:13px;
+  line-height:1.5;
+  color:#f8edda;
+}
+.inviting-item b{
+  display:block;
+  font-weight:600;
+}
+.inviting-item small{
+  display:block;
+  margin-top:3px;
+  font-size:10px;
+  line-height:1.45;
+  color:#dfc99f;
+}
+@media(max-width:420px){
+  .inviting-item{
+    grid-template-columns:31px 1fr;
+    padding:12px 10px;
+  }
+  .inviting-item > span{
+    width:28px;
+    height:28px;
+  }
+  .inviting-item p{
+    font-size:12px;
+  }
+  .inviting-item small{
+    font-size:9px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -125,6 +190,58 @@ textarea{min-height:95px;resize:vertical}
   <div class="gallery">
    <img src="https://drive.google.com/thumbnail?id=1ZK8QEQD_Uxb_w9wMfpLVsc5SDbNrW548&sz=w1200" alt="Razqa" onclick="bukaFoto(this.src)" loading="lazy">
    <img src="https://drive.google.com/thumbnail?id=1cZk1wdtoIzi2PJC_5IcNqMeNJlsSDKQg&sz=w1200" alt="Razqa" onclick="bukaFoto(this.src)" loading="lazy">
+  </div>
+ </div>
+</section>
+
+
+<section class="section">
+ <div class="content panel reveal">
+  <h2>Turut Mengundang</h2>
+  <p class="text" style="margin-bottom:20px;">
+   Dengan hormat, turut mengundang:
+  </p>
+
+  <div class="inviting-list">
+   <div class="inviting-item">
+    <span>01</span>
+    <p><b>Bpk. Muammar Adi Prasetya, S.P., M.Agr.</b><small>Ketua Fraksi Golkar DPRD Lebak</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>02</span>
+    <p><b>Bpk. Buharta, S.Pd.</b><small>Kepala Desa Panggarangan</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>03</span>
+    <p><b>Bpk. Samsudin, S.Pd., M.Pd.</b><small>Ketua Cabang PGRI Kec. Panggarangan</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>04</span>
+    <p><b>Bpk. Suherman, S.Pd.</b><small>Ketua K3S Kec. Panggarangan</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>05</span>
+    <p><b>Ibu Hj. Nani Suryani, M.Pd.</b><small>Pengawas TK Kab. Lebak</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>06</span>
+    <p><b>Hilman Rohmansyah, S.Pd.</b><small>Ketua Yayasan Generasi Madani Banten</small></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>07</span>
+    <p><b>Keluarga Besar Bpk. Dudin Nazmudin – Bayah</b></p>
+   </div>
+
+   <div class="inviting-item">
+    <span>08</span>
+    <p><b>Keluarga Besar Bpk. Ramin – Gintung</b></p>
+   </div>
   </div>
  </div>
 </section>
