@@ -286,7 +286,8 @@ const guestId=new URLSearchParams(location.search).get("to")||"";
 
 function jsonp(url, timeout=12000){
  return new Promise((resolve,reject)=>{
-  const cb="razqaCallback"+Date.now();
+  // Callback wajib unik karena muatTamu() dan muatUcapan() berjalan bersamaan.
+  const cb="razqaCallback_"+Date.now()+"_"+Math.random().toString(36).slice(2,10);
   const s=document.createElement("script");
   let done=false;
   const finish=(fn,value)=>{if(done)return;done=true;clearTimeout(timer);delete window[cb];s.remove();fn(value)};
@@ -294,7 +295,8 @@ function jsonp(url, timeout=12000){
   window[cb]=data=>finish(resolve,data);
   s.async=true;
   s.onerror=()=>finish(reject,new Error("API gagal diakses"));
-  s.src=url+"&callback="+cb+"&cacheBust="+Date.now();
+  const separator=url.includes("?")?"&":"?";
+  s.src=url+separator+"callback="+encodeURIComponent(cb)+"&cacheBust="+Date.now()+"_"+Math.random().toString(36).slice(2);
   document.head.appendChild(s);
  });
 }
@@ -302,10 +304,18 @@ function jsonp(url, timeout=12000){
 async function muatTamu(){
  const el=document.getElementById("guestName");
  if(!guestId){el.textContent="Tamu Undangan";return}
+ el.textContent="Memuat nama tamu…";
  try{
   const d=await jsonp(API+"?api=1&action=guest&id="+encodeURIComponent(guestId));
-  el.textContent=(d.success&&d.guestName)?d.guestName:"Tamu Undangan";
- }catch(e){console.error(e);el.textContent="Tamu Undangan"}
+  if(d && d.success && d.guestName){
+   el.textContent=d.guestName;
+  }else{
+   el.textContent="Tamu Undangan";
+  }
+ }catch(e){
+  console.error("Gagal memuat nama tamu:",e);
+  el.textContent="Tamu Undangan";
+ }
 }
 
 function bukaUndangan(){
